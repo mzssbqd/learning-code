@@ -30,6 +30,7 @@ void insert(Node* root,const char *s)
     Node *p = root;
     for(int i = 0; s[i] ;i++)
     {
+        cout << "test" <<endl;
         int ind = s[i] - 'a';
         if(p->next[ind] == NULL) p->next[ind] = getNewNode();
         p = p->next[ind];
