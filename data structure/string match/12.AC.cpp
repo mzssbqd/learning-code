@@ -79,6 +79,7 @@ void find_ac(Node *root, const char *s)
 }
 int main()
 {
+    cout << "test" <<endl;
     int op;
     char s[100];
     Node *root = getNewNode();
