@@ -47,6 +47,26 @@ void build_ac()
     return;
 }
 
+int q[MAX_N + 5];
+void build(){
+    int head, tail;
+    head = tail = 0;
+    q[tail++] = root;
+    while(head < tail){
+        int cur = q[head++];
+        for(int i = 0; i < 26; i++){
+            if(node[cur][i] == 0){
+                node[cur][i] = (fail[cur] == 0 ? root : node[fail[cur]][i]);
+                continue;
+            }
+            fail[node[cur][i]] = (fail[cur] == 0 ? root : node[fail[cur]][i]);
+            q[tail++] = node[cur][i];
+        }
+    }
+    return;
+}
+
+
 int find_all()
 {
     int ans = 0, p = root, t;
@@ -63,6 +83,7 @@ int find_all()
     }
     return ans;
 }
+
 int main()
 {
     int n;
