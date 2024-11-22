@@ -5,7 +5,7 @@ using namespace std;
 const int MAX_N = 1e6;
 
 int node[MAX_N + 5][26] = {0};
-int cnt[MAX_N + 5] = {0}, node_cnt = 0, root = 1;
+int cnt[MAX_N + 5] = {0}, node_cnt = 1, root = 1;  //节点下标从1开始
 char s[MAX_N + 5];
 
 int get_node()
@@ -28,45 +28,25 @@ void insert(string a)
 
 queue<int> q;
 int fail[MAX_N + 5] = {0};
+
 void build_ac()
 {
     q.push(root);
-    while(!q.empty())
-    {
+    while(!q.empty()){
         int cur = q.front();
         q.pop();
         for(int i = 0; i < 26; i++){
             if(node[cur][i] == 0){
-                node[cur][i] = (fail[cur] == 0 ? root : node[fail[cur]][i]); //线索化
+                node[cur][i] = (fail[cur] == 0 ? root : node[fail[cur]][i]);
                 continue;
             }
-            fail[node[cur][i]] = (fail[cur] == 0 ? root : node[fail[cur]][i]);//ac
+            fail[node[cur][i]] = (fail[cur] == 0 ? root : node[fail[cur]][i]);
             q.push(node[cur][i]);
         }
     }
     return;
 }
-//int que[MAX_N + 5];
-// void build(){
-//     int head = 0, tail = 0, p;
-//     que[tail++] = root;
-//     while(head < tail){
-//         int cur = que[head++];
-//         for(int i = 0; i < 26; i++){
-//             if(node[cur][i] == 0){
-//                 if(fail[cur] == 0) node[cur][i] = root;
-//                 else node[cur][i] = node[fail[cur]][i];
-//                 continue;
-//             }
-//             p = fail[cur];
-//             if(p == 0) p = root;
-//             else p = node[fail[cur]][i];
-//             fail[node[cur][i]] = p;
-//             que[tail++] = node[cur][i];
-//         }
-//     }
-//     return;
-// }
+
 int find_all()
 {
     int ans = 0, p = root, t;
@@ -75,7 +55,7 @@ int find_all()
         int ind = s[i] - 'a';
         p = node[p][ind];
         t = p;
-        while(t && t != -1){
+        while(t && cnt[t] != -1){
             ans += cnt[t];
             cnt[t] = -1;
             t = fail[t];
