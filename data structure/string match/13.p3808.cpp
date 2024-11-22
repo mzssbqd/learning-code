@@ -47,20 +47,20 @@ void build_ac()
     return;
 }
 
-int q[MAX_N + 5];
+int que[MAX_N + 5];
 void build(){
     int head, tail;
     head = tail = 0;
-    q[tail++] = root;
+    que[tail++] = root;
     while(head < tail){
-        int cur = q[head++];
+        int cur = que[head++];
         for(int i = 0; i < 26; i++){
             if(node[cur][i] == 0){
                 node[cur][i] = (fail[cur] == 0 ? root : node[fail[cur]][i]);
                 continue;
             }
             fail[node[cur][i]] = (fail[cur] == 0 ? root : node[fail[cur]][i]);
-            q[tail++] = node[cur][i];
+            que[tail++] = node[cur][i];
         }
     }
     return;
