@@ -9,14 +9,13 @@
 #include <string>
 using namespace std;
 
-const int MAX_N = 2e5;
+const int MAX_N = 2e6;
 int node[MAX_N + 5][26], node_cnt = 1, root = 1;
 int val[MAX_N + 5] = {0}, dp[MAX_N + 5];
-char s[MAX_N + 5];
-string t;
 inline int getNode() { return ++node_cnt; }
+string s;
 
-void insert(char *s) {
+void insert(string &s) {
     int p = root;
     for(int i = 0; s[i]; i++) {
         int ind = s[i] - 'A';
@@ -38,23 +37,23 @@ void mask(int beg, string &u) {
     return ;
 }
 int main() {
-    while(~scanf("%s", s)) {
+    while(cin >> s) {
         if(s == ".") break;
         insert(s);
     }
-    string t, k;
-    t = "";
-    while(cin >> k) {
-        t += k;
+    string t;
+    s = "";
+    while(cin >> t) {
+        s += t;
     } 
     dp[0] = 1;
     int ans = 0, i = 0;
-    for(; t[i]; i++) {
+    for(; s[i]; i++) {
         if(dp[i] == 0) continue;
         ans = i;
-        mask(i, t);
+        mask(i, s);
     }
-    if(dp[i + 1] == 1) ans = i;
+    if(dp[i + 1] == 1) ans = s.size();
     cout << ans << endl;
     return 0;
 }
