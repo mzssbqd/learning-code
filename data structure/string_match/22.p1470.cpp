@@ -53,7 +53,7 @@ int main() {
         ans = i;
         mask(i, s);
     }
-    if(dp[i + 1] == 1) ans = s.size();
+    if(dp[s.size()]) ans = s.size();
     cout << ans << endl;
     return 0;
 }
