@@ -24,6 +24,7 @@ void dfs(int root) {
         int j = e[i].to;
         arr[arr_cnt++] = j;
     }
+    sort(arr, arr + arr_cnt);
     for(int i = 0; i < arr_cnt; i++) {
         if(st[i] == 0) dfs(arr[i]);
     }
