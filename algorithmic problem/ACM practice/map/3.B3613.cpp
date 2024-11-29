@@ -10,12 +10,7 @@ vector<set<int>> s(N);
 int n, m;
 
 
-void init() {
-    n = m = 0;
-    s.clear();
-}
 void slove() {
-    init();
     cin >> n >> m;
     int u, v;
     while(m--) {

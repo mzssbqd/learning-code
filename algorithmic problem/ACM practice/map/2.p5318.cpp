@@ -9,6 +9,7 @@ struct Edge{
 }e[M];
 int head[N], cnt = 0;
 bool st[N];
+int arr[N], arr_cnt = 0;
 int n, m;
 
 void add(int a, int b) {
@@ -17,11 +18,14 @@ void add(int a, int b) {
 }
 
 void dfs(int root) {
+    st[root] = 1, arr_cnt = 0;
     printf("%d ", root);
     for(int i = head[root]; i != 0; i = e[i].nxt) {
         int j = e[i].to;
-        if(!st[j]) dfs(j);
-        st[j] = 1;
+        arr[arr_cnt++] = j;
+    }
+    for(int i = 0; i < arr_cnt; i++) {
+        if(st[i] == 0) dfs(arr[i]);
     }
     return ;
 }
