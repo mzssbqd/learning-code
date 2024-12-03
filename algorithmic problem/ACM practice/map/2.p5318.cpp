@@ -1,43 +1,59 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
+#include <cstring>
 using namespace std;
 
-const int N = 1e5 + 5, M = 1e6 + 5;
-
-struct Edge{
-    int to, nxt;
-}e[M];
-int head[N], cnt = 0;
-bool st[N];
-int arr[N], arr_cnt = 0;
+const int N = 1e5 + 10;
+const int M = 1e6 + 10;
+vector<int> g[N];
+int st[N];
 int n, m;
 
-void add(int a, int b) {
-    e[++cnt] = {b, head[a]}, head[a] = cnt;
+void dfs(int k) {
+    st[k] = 1;
+    printf("%d ", k);
+    for(auto x: g[k]) {
+        if(st[x] == 1) continue;
+        dfs(x);
+    }
     return ;
 }
 
-void dfs(int root) {
-    st[root] = 1, arr_cnt = 0;
-    printf("%d ", root);
-    for(int i = head[root]; i != 0; i = e[i].nxt) {
-        int j = e[i].to;
-        arr[arr_cnt++] = j;
-    }
-    sort(arr, arr + arr_cnt);
-    for(int i = 0; i < arr_cnt; i++) {
-        if(st[i] == 0) dfs(arr[i]);
+int q[N];
+void bfs(int k) {
+    memset(st, 0, sizeof st);
+    int hh, tt;
+    hh = tt = 0;
+    q[tt++] = k;
+    st[k] = 1;
+    while(hh < tt) {
+        int cur = q[hh++];
+        printf("%d ", cur);
+        for(auto x: g[cur]) {
+            if(st[x]) continue;
+            st[x] = true;
+            q[tt++] = x;
+        }
     }
     return ;
 }
 int main() {
-    cin >> n >> m;
-    int a, b, beg = N;
+    scanf("%d%d", &n, &m);
     while(m--) {
-        cin >> a >> b;
-        beg = min(beg, a);
-        add(a, b);
+        int a, b;
+        scanf("%d%d", &a, &b);
+        g[a].push_back(b);
+    }
+    int beg = N;
+    for(int i = 1; i <= N; i++) {
+        if(!g[i].empty()) {
+            beg = min(beg, i);
+            sort(g[i].begin(), g[i].end());
+        }
     }
     dfs(beg);
+    printf("\n");
+    bfs(beg);
     return 0;
 }

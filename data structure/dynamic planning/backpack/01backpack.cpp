@@ -1,17 +1,11 @@
 #include<iostream>
 using namespace std;
-//#define MAX_N 100
 #define MAX_V 10000
-//int v[MAX_N+5],w[MAX_N+5];
-int dp[MAX_V+5]={0};//n:thing v:value 
+int dp[MAX_V+5];
 int main()
 {
     int V,n;
     cin>>V>>n;
-    // for(int i=1;i<=n;i++) 
-    // {
-    //     cin>>v[i]>>w[i];
-    // }
     for(int i=1,v,w;i<=n;i++)
     {
         cin>>v>>w;

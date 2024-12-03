@@ -8,10 +8,7 @@ int main()
 {
     int V,n;
     cin>>V>>n;
-    // for(int i=1;i<=n;i++) 
-    // {
-    //     cin>>v[i]>>w[i];
-    // }
+
     for(int i=1,v,w,s;i<=n;i++)
     {
         cin>>v>>w>>s;

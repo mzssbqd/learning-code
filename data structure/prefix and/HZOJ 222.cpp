@@ -1,83 +1,76 @@
-    #include<iostream>
-    using namespace std;
-    #define MAX_N 10000
-    int n,m;
-    int num[MAX_N+5],tree[MAX_N*4+5];//1
+#include<iostream>
+using namespace std;
+#define MAX_N 10000
+#define ls(x) (x << 1)
+#define rs(x) (x << 1 | 1)
+int n,m;
+int num[MAX_N+5],tree[MAX_N*4+5];//1
 
-    //build segment_tree
-    int update(int ind)
+int update(int ind)
+{
+    tree[ind]=max(tree[ls(ind)],tree[rs(ind)]);
+    //tree[ind] = tree[ls(ind)] + tree[rs(ind)];
+    return 0;
+}
+void build_tree(int p,int pl,int pr)
+{
+    if(pl == pr) { tree[p] = num[pl]; return ;}
+    int mid=(pl + pr) >> 1;
+    build_tree(ls(p), pl, mid);
+    build_tree(rs(p), mid + 1, pr);
+    update(p);
+    return;  
+}
+//单点修改
+void modify(int p,int pl,int pr,int k,int x)
+{
+    if(pr == pl) { tree[pl] = x; return ;}
+    int mid = (pl + pr) >> 1;
+    if(mid >= k) modify(ls(p),pl,mid,k,x);
+    else modify(rs(p),mid+1,pr,k,x);
+    update(p);
+    return ;
+}
+//query node
+int query(int p,int pl,int pr,int L,int R)
+{
+    if(L <= pl && pr <= R) return tree[p];
+    int mid=(pl+pr) >> 1;
+    int ans=-2147483648;
+    /*
+        L      mid          R
+    */
+    if(L <= mid) ans=max(ans, query(ls(p), pl, mid, L, R)); 
+    if(R >= mid + 1) ans=max(ans, query(rs(p), mid+1, pr, L, R));
+    return ans;
+}
+int main()
+{
+    cin>>n>>m;
+    for(int i=1;i<=n;i++)
     {
-        tree[ind]=max(tree[ind*2],tree[ind*2+1]);
-        return 0;
+        cin>>num[i];
     }
-    void build_tree(int ind,int l,int r)
+    build_tree(1,1,n);
+    for(int i=1,a,b,c;i<=m;i++)
     {
-        if(l==r)
+        cin>>a>>b>>c;
+        switch(a)
         {
-            tree[ind]=num[l];
-            return;
-        }
-        int mid=(l+r)/2;
-        build_tree(ind*2,l,mid);
-        build_tree(ind*2+1,mid+1,r);
-        update(ind);
-        return; 
-    }
-
-
-    //modify segment_tree
-    void modify(int ind,int l,int r,int x,int y)
-    {
-        if(l==r)
-        {
-            tree[ind]=y;
-            return;
-        }
-        int mid=(l+r)/2;
-        if(mid>=x) modify(ind*2,l,mid,x,y);
-        else modify(ind*2+1,mid+1,r,x,y);
-        update(ind);
-        return;
-    }
-
-    //query node
-    int query(int ind,int l,int r,int x,int y)
-    {
-        if(x<=l && r<=y) return tree[ind];
-        int mid=(l+r)/2;
-        int ans=-2147483648;
-        if(l<=y && x<=mid) ans=max(ans,query(ind*2,l,mid,x,y));
-        if(mid+1<=y && x<=r) ans=max(ans,query(ind*2+1,mid+1,r,x,y));
-        return ans;
-    }
-    int main()
-    {
-        cin>>n>>m;
-        for(int i=1;i<=n;i++)
-        {
-            cin>>num[i];
-        }
-        build_tree(1,1,n);
-        for(int i=1,a,b,c,d;i<=m;i++)
-        {
-            cin>>a>>b>>c;
-            switch(a)
+            case 1:
             {
-                case 1:
+                if(b>c) break;
+                modify(1, 1, n, b, c);
+            }break;
+            case 2:
+            {
+                if(b > c) cout<<"-2147483648"<<endl;
+                else
                 {
-                    cin>>d;
-                    if(b>c) break;
-                    modify(1,1,n,b,c);
-                }break;
-                case 2:
-                {
-                    if(b>c) cout<<"-2147483648"<<endl;
-                    else
-                    {
-                        cout<<query(1,1,n,b,c)<<endl;
-                    }
-                }break;
-            }
+                    cout<<query(1, 1, n, b, c)<<endl;
+                }
+            }break; 
         }
-        return 0;
     }
+    return 0;
+}

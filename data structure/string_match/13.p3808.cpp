@@ -4,14 +4,11 @@ using namespace std;
 
 const int MAX_N = 1e6;
 
-int node[MAX_N + 5][26] = {0};
-int cnt[MAX_N + 5] = {0}, node_cnt = 1, root = 1;  //节点下标从1开始
+int node[MAX_N + 5][26];
+int cnt[MAX_N + 5], node_cnt = 1, root = 1;  //节点下标从1开始
 char s[MAX_N + 5];
 
-int get_node()
-{
-    return ++node_cnt;
-}
+int get_node(){ return ++node_cnt; }
 
 void insert(string a)
 {
@@ -27,7 +24,7 @@ void insert(string a)
 }
 
 queue<int> q;
-int fail[MAX_N + 5] = {0};
+int fail[MAX_N + 5];
 
 void build_ac()
 {

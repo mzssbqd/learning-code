@@ -23,7 +23,6 @@ int build_tree(int l,int r)
     tree[ind].rchild=build_tree(mid+1,r);
     return ind;
 }
-
 int clone(int ind)
 {
     node_cnt+=1;

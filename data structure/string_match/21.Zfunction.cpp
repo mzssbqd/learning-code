@@ -12,3 +12,7 @@ int main() {
     }
     return 0;
 }
+
+int gcd(int a, int b) {
+    
+}

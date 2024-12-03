@@ -10,12 +10,10 @@
 using namespace std;
 #define MAX_V 100000
 int dp[MAX_V+5]={0};
-int main()
-{
+int main() {
     int V,n;
     cin>>V>>n;
-    for(int i=1,v,w,s;i<=n;i++)
-    {
+    for(int i=1,v,w,s;i<=n;i++) {
         cin>>v>>w>>s;
         //wrong
         //如果这样写,那么其实我只选择了1 2 4 7 个背包
@@ -29,11 +27,9 @@ int main()
         //         dp[j]=max(dp[j],dp[j-v*k]+w*k);
         //     }
         // }
-        for(int k=1;s;s-=k,k*=2)
-        {
+        for(int k=1;s;s-=k,k*=2) {
             k=min(k,s);
-            for(int j=V;j>=v*k;j--)
-            {
+            for(int j=V;j>=v*k;j--) {
                 dp[j]=max(dp[j],dp[j-v*k]+w*k);
             }
         }

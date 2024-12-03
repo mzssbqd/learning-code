@@ -7,7 +7,7 @@ int main()
 {
     int n,V;
     cin>>n>>V;
-    for(int i=1,v,w;i<=n;i++)
+    for(int i=1,v,w, s;i<=n;i++)
     {
         cin>>v>>w>>s;
         for(int j=v;j<=V;j++)
