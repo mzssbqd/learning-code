@@ -1,15 +1,15 @@
 #include <stdio.h>
-const int N = 55;
+const int N = 1000;
 int arr[N][N];
 int n, m;
 
-int max(int a, int b) {
+inline int max(int a, int b) {
     return a > b ? a : b;
 }
-int min(int a, int b) {
+inline int min(int a, int b) {
     return a < b ? a : b;
  }
-int main() {
+ int main() {
     scanf("%d%d", &n, &m);
     for(int i = 1; i <= n; i++) {
         for(int j = 1;j <= m; j++) {
@@ -19,11 +19,12 @@ int main() {
     }
     int cnt = 0;
     for(int j = 1; j <= m; j++) {
+        int ans = 0x3f3f3f3f;
         for(int i = 1; i <= n; i++) {
-            arr[0][j] = min(arr[0][j], arr[i][j]);
+            ans = min(ans, arr[i][j]);
         }
         for(int k = 1; k <= n; k++) {
-            if(arr[k][0] == arr[0][j]) {
+            if(arr[k][0] == ans) {
                 cnt += 1;
             }
         }

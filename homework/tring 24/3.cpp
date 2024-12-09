@@ -1,5 +1,5 @@
 #include <stdio.h>
-const int N = 55;
+const int N = 200;
 int arr[N][N];
 int n, m;
 
@@ -18,14 +18,17 @@ int main() {
         }
     }
     for(int j = 1; j <= m; j++) {
+        int ans = 5000;
         for(int i = 1; i <= n; i++) {
-            arr[0][j] = min(arr[0][j], arr[i][j]);
+            ans = min(ans, arr[i][j]);
         }
         for(int k = 1; k <= n; k++) {
-            if(arr[k][0] == arr[0][j]) {
-                
-                printf("%d %d %d", k, j, arr[k][j]);
+            if(arr[k][0] == ans) {
+                printf("%d %d %d", k - 1, j - 1, arr[k][j]);
+                return 0;
             }
         }
     }
+    printf("It does not exist!");
+    return 0;
 }

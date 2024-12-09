@@ -8,9 +8,11 @@
                 temp /= 10;
                 size *= 10;
             }
-            for(int i = 0; i < n; i++) {
-                x += (x % 10) * size;
-                x /= 10;
+            size /= 10;
+            for(int i = 0, m; i < n; i++) {
+                m = x / size;
+                x -= size * m;
+                x = x * 10 + m;
             }
             printf("%lld\n", x);
         }
