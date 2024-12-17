@@ -7,7 +7,8 @@ int main() {
     while(scanf("%lld", &a) != EOF) {
         arr[cnt++] = a;
     }
-    k = arr[cnt];
+    k = arr[cnt - 1];
+    arr[cnt--] = 0;
     for(int i = cnt - 1; i >= 0; i--) {
         if(k <= arr[i]) {
             arr[i + 1] = arr[i];
