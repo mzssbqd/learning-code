@@ -1,17 +1,24 @@
 #include <stdio.h>
-#include <cstring>
-#include <stdlib.h>
 
-int n, x;
-int main() {
-    
-    while(scanf("%d%d", &n, &x) != EOF) {
-        int flag = -1;
-        for(int i = 1, a; i <= n; i++) {
-            scanf("%d", &a);
-            if(x == a && flag == -1) flag = i;
+int arr[15], st[15];
+int n;
+void dfs(int step) {
+    if(step == n + 1) {
+        for(int i = 1; i <= n; i++) {
+            printf("%d ", arr[i]);
         }
-       printf("%d\n", flag);
+        printf("\n");
+        return ;
     }
+    for(int i = 1; i <= n; i++) {
+        if(st[i] == 1) continue;
+        arr[step] = i, st[i] = 1;
+        dfs(step + 1);
+        st[i] = 0;
+    }
+}
+int main() {
+    scanf("%d", &n);
+    dfs(1);
     return 0;
 }
