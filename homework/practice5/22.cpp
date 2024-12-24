@@ -17,6 +17,6 @@
     int main() {
         scanf("%s", s.name);
         scanf("%lf%lf%lf%lf%lf%lf", &s.a, &s.b, &s.c, &s.d, &s.e, &s.f);
-        printf("sum=%.2lf,average=%.2lf\n", s.SUM(), s.ave());
+        printf("sum=%.2lf,average= %.2lf\n", s.SUM(), s.ave());
         return 0;
     }
